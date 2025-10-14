@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #343a40;
+        }
+        form {
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 70%;
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        a {
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 5px;
+        }
+        .delete {
+            color: red;
+        }
+        .complete {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tasks</h1>
+
+    <form th:action="@{/add}" method="post">
+        <input name="task" placeholder="New task" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <form th:action="@{/clear}" method="post" style="margin-top:10px">
+        <button type="submit">Clear all my tasks</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="t : ${tasks}">
+                <td th:text="${t.title}">Task title</td>
+                <td>
+                    <span th:text="${t.completed} ? 'Completed' : 'Pending'">Status</span>
+                </td>
+                <td>
+                    <a th:href="@{/completed/{id}(id=${t.id})}" class="complete">✅</a>
+                    |
+                    <a th:href="@{/delete/{id}(id=${t.id})}" class="delete">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><a th:href="@{/logout}">Logout</a></p>
+</body>
+</html>
