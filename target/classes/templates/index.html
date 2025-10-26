@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tasks</title>
     <style>
         body {
@@ -10,18 +11,24 @@
             text-align: center;
             margin: 20px;
         }
+
         h1 {
             color: #343a40;
+            margin-bottom: 20px;
         }
+
         form {
             margin: 10px 0;
         }
+
         input[type="text"] {
             padding: 8px;
             width: 250px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            max-width: 90%;
         }
+
         button {
             padding: 8px 12px;
             background-color: #007BFF;
@@ -30,36 +37,94 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
+            transition: background-color 0.3s;
         }
+
         button:hover {
             background-color: #0056b3;
         }
+
         table {
             margin: 20px auto;
             border-collapse: collapse;
-            width: 70%;
+            width: 90%;
+            max-width: 800px;
             background: white;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
+
         th, td {
             padding: 12px;
             border: 1px solid #ddd;
             text-align: center;
+            word-wrap: break-word;
         }
+
         th {
             background-color: #007BFF;
             color: white;
         }
+
         a {
             text-decoration: none;
             font-size: 14px;
             margin: 0 5px;
         }
+
         .delete {
             color: red;
         }
+
         .complete {
             color: green;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            input[type="text"] {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+
+            button {
+                width: 80%;
+                padding: 10px;
+            }
+
+            table {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                padding: 10px 8px;
+            }
+
+            a {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            button {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -75,28 +140,30 @@
         <button type="submit">Clear all my tasks</button>
     </form>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Task</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="t : ${tasks}">
-                <td th:text="${t.title}">Task title</td>
-                <td>
-                    <span th:text="${t.completed} ? 'Completed' : 'Pending'">Status</span>
-                </td>
-                <td>
-                    <a th:href="@{/completed/{id}(id=${t.id})}" class="complete">✅</a>
-                    |
-                    <a th:href="@{/delete/{id}(id=${t.id})}" class="delete">Delete</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="t : ${tasks}">
+                    <td th:text="${t.title}">Task title</td>
+                    <td>
+                        <span th:text="${t.completed} ? 'Completed' : 'Pending'">Status</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/completed/{id}(id=${t.id})}" class="complete">✅</a>
+                        |
+                        <a th:href="@{/delete/{id}(id=${t.id})}" class="delete">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <p><a th:href="@{/logout}">Logout</a></p>
 </body>

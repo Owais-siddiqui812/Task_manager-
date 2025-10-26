@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <style>
         body {
@@ -13,6 +14,7 @@
             height: 100vh;
             margin: 0;
         }
+
         .register-container {
             background-color: white;
             padding: 30px;
@@ -20,18 +22,23 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             width: 350px;
             text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
         }
+
         .register-container h2 {
             margin-bottom: 20px;
             color: #333;
         }
+
         .register-container input {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
             border: 1px solid #ccc;
             border-radius: 8px;
+            font-size: 15px;
         }
+
         .register-container button {
             width: 100%;
             padding: 12px;
@@ -41,23 +48,74 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s;
         }
+
         .register-container button:hover {
             background-color: #e04a4e;
+            transform: scale(1.02);
         }
+
         .register-container a {
             display: block;
             margin-top: 15px;
             color: #ff5e62;
             text-decoration: none;
+            font-size: 14px;
         }
+
         .register-container a:hover {
             text-decoration: underline;
         }
+
         .error {
             color: red;
             margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .register-container {
+                width: 80%;
+                padding: 25px;
+            }
+
+            .register-container h2 {
+                font-size: 1.5em;
+            }
+
+            .register-container button {
+                font-size: 15px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .register-container h2 {
+                font-size: 1.3em;
+            }
+
+            .register-container input,
+            .register-container button {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .register-container a {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
